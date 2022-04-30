@@ -1,0 +1,13 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RVModules.RVSmartAI;
+using RVModules.RVSmartAI.GraphElements;
+
+public class #SCRIPTNAME# : BASECLASS 
+{
+    public override float Score(float _deltaTime)
+    {
+        return 0;
+    }
+}

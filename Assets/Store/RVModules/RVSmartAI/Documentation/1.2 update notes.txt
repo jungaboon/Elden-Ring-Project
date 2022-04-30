@@ -1,0 +1,6 @@
+Make sure to backup your project before upgrading to this version, especially your ai graphs.
+This update will break your existing graphs since there were some important changes in handling utilities data, 
+to fix them this update provides you with graph auto-fixing tool, which is very useful in also other scenarios, like if Unity will lose some references in graph etc. 
+After update to this version you will need to upgrade all your graphs with this procedure for every smarti ai graph in your project:
+-open ai graph prefab in prefab mode by double clicking it
+-then select from top toolbar select SmartAI -> Analyse and fix selected AiGraph. 

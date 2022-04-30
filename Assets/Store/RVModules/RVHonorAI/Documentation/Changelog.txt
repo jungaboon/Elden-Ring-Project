@@ -1,0 +1,79 @@
+
+01.2021
+0.8 beta
+Fixes:
+-fixed agents waypoints being shared between agents 
+
+03.2021
+0.9 beta
+Features:
+-Autom animation assigner tool - assign animations automatically based on keywords and animation clip names
+-Clips renamer tool - rename animation clips to match their fbx file name - super useful for mixamo animations
+-Animation importer tool - copy animations between animation presets and Characters, all combinations allowed - preset-preset, Character-Character,  Character-preset and vice-versa
+-Selectable AiComponents prefab in Character creation wizard
+-Guided missile type projectile
+-Particles handling for ShootingWeapon
+-Added AimTransform to Character 
+-Box-shaped spawn option in CharacterSpawner
+-Scalable load balancing option for AI graphs - throttle AI updates frequency slowing down AI updates instead of bogging cpu with more characters
+-Performance info showing useful information regarding performance like how many AI updates per frame you can expect with certain number of characters      
+-Added some statistics in HonorAIManager
+-Event callbacks for objects and target detection: OnNewTargetDetected, OnTargetNotSeenAnymore, OnTargetVisibleAgain, OnTargetForget, OnNewObjectDetected, OnObjectNotDetectedAnymore
+
+Improvements:
+-Exposed AnimationEventBasedAttack as graph variable and added to Character inspector
+-Animations import undo handling
+-Animator controller logic improvements
+-Character movement speed takes into account its scale when using root motion
+-Updated all AI graphs
+-Improved distance and melee fighting logic
+-Ragdoll scale automatically set to match Characters scale on creation  
+-Automatic pool creation for all poolable objects(effects, projectiles etc), no need to add them manually to PoolManager anymore
+-Updated RVCommonGameLibrary
+-Separated scanning tasks to other graph - this allow for separate control of update frequency of AI logic and expensive targets scanning 
+-Exposed 'velocityDeltaSpeed' in CharacterAnimation component - allows for control over how fast are character movement animation transitions
+-Decoupled Character component from CharacterAi component
+ 
+Changes:
+-HonorAiManager prefab: no more AudioManager and PoolManager
+-Removed 'no weapon' stats, Character has to have weapon to be able to attack
+-Changed Weapon component name to Attack and ShootingWeapon to ShootingAttack
+
+Fixes:
+-Import/export animations creates new copies of ClipConfigs instead of referencing same objects
+-Disable LookAt component when AI not enabled
+-Waypoint position fields in inspector have now flexible width
+-Turning off animation events when Character is killed to avoid "AnimationEvent 'EventName' has no receiver" errors
+
+6.2021
+1.0
+Features:
+-Custom animation support with API to play them whenever you want
+-Random idle animations
+-Attacks system - each weapon can have multiple attacks with different animations and stats
+-Multiple attacks per weapon
+-Multiple weapons handling - no need to assign weapon anymore, they're referenced automatically using GetComponentsInChildren method
+-Modular features system: single features of Character component are moved into separate components called systems and are referenced in AiSystems component
+-Exposing any serialized field from any component on your AI in Character inspector with CharacterInspectorFieldAttribute
+
+Improvements:
+-Organization of files and namespaces  
+-Centralized all essential settings and information into Character inspector
+-Runtime AI info for Character inspector
+-Scanners layers settings are now added under relevant tabs in Character inspector
+-Weapon/attack range will now take into account target's radius
+-New event: OnGotHit
+-Added shooting ai example to BattleExample scene
+-MovementScanRange variable in AiVariables that defines scan radius for all ScanAndMoveToBestPosition and ScanWalkablePositions tasks
+-All CharacterInspector members made protected so you can modify how your inspector looks and works if needed by inheriting CharacterInspector
+-Updated all graphs
+-DamageEnemyOnly parameter in DamageSystem to handle friendly fire
+
+Changes:
+-CharacterAnimation now lives on root game object instead of AiComponents
+-No more global damage system, it's now part of modular AiSystems 
+-No more "animationEventBasedAttack", now it's handled by new attacks system
+
+10.2021
+1.01
+-Tool for prefabs data serialization, to allow users to prepare their AI prefabs for next update without losing data  

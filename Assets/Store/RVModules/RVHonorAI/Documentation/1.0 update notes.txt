@@ -1,0 +1,3 @@
+Weapon/attack range will now take into account target's radius - you may need to tweak weapon range - to calculate real attack distance system now
+substract both target and own radius, so if you had two AI with .5 radius and 1 of attack range now they engage at range of 2 between them and range 1 
+measuring from their closest point. 

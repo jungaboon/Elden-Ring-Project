@@ -1,0 +1,19 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RVModules.RVSmartAI.Examples;
+using RVModules.RVSmartAI;
+using Object = UnityEngine.Object;
+
+public class #SCRIPTNAME# : AiScanSurrounding {
+
+    protected override void Execute(float _deltaTime)
+    {
+        base.Execute(_deltaTime);
+    }
+
+    protected override void AddToNearbyObjects(Object _object)
+    {
+        base.AddToNearbyObjects(_object);
+    }
+}

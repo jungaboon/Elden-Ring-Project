@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa0f92bc5d154aae8ba2b5566c74e19d, type: 3}
+  m_Name: Blue
+  m_EditorClassIdentifier: 
+  allies: []
+  enemies:
+  - {fileID: 11400000, guid: 18e77509e0e7500409602b06d7ab5ea4, type: 2}
+  enemyToAll: 0
+  allyToAll: 0

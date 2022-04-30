@@ -1,0 +1,5 @@
+Made obsolete all old graph elements not supporting data providers. They will still show and have all fields untouched so you can refactor your graphs without
+loosing any data. You will get errors at runtime informing you which graph elements needs to be replaced by which new equivalent.
+
+ScanAndMoveToPosition and ScanWalkablePositions tasks scan distance field is now of type FloatProvider instead of float.
+If you used those in your graph you will need to update those fields manually.

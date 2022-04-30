@@ -1,0 +1,13 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RVModules.RVSmartAI.Examples;
+using RVModules.RVSmartAI;
+
+public class #SCRIPTNAME# : BASECLASS 
+{
+    public override float Score(Vector3 _parameter)
+    {
+        return 0;
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "RVCommonGameLibraryEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1b5b6fff8fa7f81468f7b6831cc21c77",
+        "GUID:84977cd25ace261448622ca1e57d97b0",
+        "GUID:ef960d8d155c45449b4b4c2db0e74476"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

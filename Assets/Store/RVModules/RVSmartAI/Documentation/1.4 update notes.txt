@@ -1,0 +1,5 @@
+SmartAiExposeField is now obsolete. Every serialized property will be showing in inspector. If you dont want to show some fields, use HideInInspector 
+or SmartAiHideInInspector attributes. SmartAiHideInInspector will hide field only in 'graph' inspector - when you select some graph element, while with normal, direct
+selection of game object inspector will still show that field.
+If you used SmartAiExposeField with description, you can easily recover them using replace feature in your IDE and replace all SmartAiExposeField
+with unity's Header or Tooltip attributes in your code, as syntax is the same. 

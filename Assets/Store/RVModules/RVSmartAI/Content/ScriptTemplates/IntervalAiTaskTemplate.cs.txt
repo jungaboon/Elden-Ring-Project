@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RVModules.RVSmartAI;
+using RVModules.RVSmartAI.GraphElements;
+
+public class #SCRIPTNAME# : BASECLASS 
+{
+    /// <summary>
+    /// How much time must pass since last call before this AiTask can be executed again
+    /// </summary>
+    
+    public float callInterval = 2f;
+    
+    public DateTime lastCallTime;
+
+    protected override void Execute(float _deltaTime)
+    {
+        // exit early if we called it too soon
+        if ((DateTime.Now - lastCallTime).TotalSeconds < callInterval) return;
+        lastCallTime = DateTime.Now;
+        
+        // Put your task logic here
+        
+    }
+}

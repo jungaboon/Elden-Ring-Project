@@ -1,0 +1,16 @@
+{
+    "name": "RVSmartAI",
+    "references": [
+        "RVLoadBalancer",
+        "RVUtilities",
+        "xNode"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

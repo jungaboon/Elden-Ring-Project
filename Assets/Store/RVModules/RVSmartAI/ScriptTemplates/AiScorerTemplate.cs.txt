@@ -1,0 +1,13 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RVModules.RVSmartAI.Examples;
+using RVModules.RVSmartAI;
+
+public class #SCRIPTNAME# : BASECLASS 
+{
+    protected override float Score(float _deltaTime)
+    {
+        return 0;
+    }
+}

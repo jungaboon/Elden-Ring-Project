@@ -1,0 +1,17 @@
+{
+  "name": "com.rv.utilities",
+  "version": "0.1.1",
+  "displayName": "RVUtilities",
+  "description": "This is an RV package",
+  "unity": "2017.1",
+  "dependencies": {
+ },
+ "keywords": [
+    "rv"
+  ],
+  "author": {
+    "name": "RonisVision",
+    "email": "paluszynskiroland@gmail.com",
+    "url": "https://www.unity3d.com"
+  } 
+}

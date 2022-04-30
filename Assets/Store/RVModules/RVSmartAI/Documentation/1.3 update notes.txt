@@ -1,0 +1,10 @@
+This update change all scorers using curve logic: now input for method GetScoreFromCurve(float _score) should always be normalized (0-1) - earlier
+it had to be unnecessarily multiplied by score, just to be divided by score in method GetScoreFromCurve(float _score). 
+So if you have any scorers that inherit from AiScorerCurve, AiScorerCurveParams, AiAgentBaseScorerCurve or AiAgentBaseScorerCurveParams, 
+to have the same behaviour as earlier you need to remove multiply by score in input parameter for method GetScoreFromCurve(), example:
+earlier was:
+GetScoreFromCurve(_parameter.ManhattanDistance2d(PositionToMeasure) / distance * score)  
+now it will be:
+GetScoreFromCurve(_parameter.ManhattanDistance2d(PositionToMeasure) / distance)  
+
+It is now way more intuitive to write curve scorers properly, and we're also avoiding one multiply and one divide operations for every curve evaluation. 

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2215431793269306861
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2816800699353368606, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_Name
+      value: RedMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816800699353368602, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816800699353368602, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816800699353368602, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816800699353368602, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816800699353368607, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: aiGroup
+      value: 
+      objectReference: {fileID: 11400000, guid: 18e77509e0e7500409602b06d7ab5ea4,
+        type: 2}
+    - target: {fileID: 2816800699032007117, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4cfcc7575e62d3c49b41300a54d9048d, type: 2}
+    - target: {fileID: 2816800699427492614, guid: 95b164fee94fc104bae547d5f1e49512,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4cfcc7575e62d3c49b41300a54d9048d, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 95b164fee94fc104bae547d5f1e49512, type: 3}

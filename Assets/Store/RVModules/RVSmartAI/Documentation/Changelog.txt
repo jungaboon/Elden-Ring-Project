@@ -1,0 +1,152 @@
+10.2019
+1.0
+-first release 
+
+10.2019
+1.1
+-Unity 2019 support
+-updated modules: new api for managing load balancing; now you don't need to have 'SmartAIUpdater' object on scene
+-update frequency can be set separately for every ai thanks to new load balancing api
+-general code cleanup and improved encapsulation in provided examples
+
+01.2020
+1.2
+Features:
+-graph elements copying, pasting and duplicating, from node's context menu
+-tool for analysis and automatic fixing of AiGraph
+-debugging last score for single scorers in inspector
+-new set of scorers and tasks that are reflection based, see RVModules\RVSmartAI\Content\Code\AI\ReflectionBased\
+allowing to manipulate public properties on context and AiTaskParams parameters via ai graphs
+-scorer types: now you can select math operation for every scorer: add, sub, multiply or divide.
+It operates on result score from all earlier scorers, so if the last scorer is divide, it will divide whole returning score by its own score.
+
+Fixes:
+-graph is destroyed on Ai component OnDestroy
+-script templates using public instead of protected access modifier
+-AiTaskParams - scores below 0 will work properly now
+-AiTaskParams disabling fix
+-general code cleanup
+
+05.2020
+1.2.1
+-added button to fold nodes in graph
+
+07.2020
+1.3
+Features:
+-secondary graphs
+-nested graphs system
+-new node type: graph node for referencing other graphs
+-search bar for adding scorers and tasks windows
+-ai jobs system
+-AiTask can now have scorers just like AiUtility
+
+Improvements:
+-automatic and more consistent graph elements' game objects naming
+-lost references to child graph element now automatically fixed 
+-automatic null child graph elements removing
+-updated RVLoadBalancer and RVUtilities modules to newest version
+-improvements in movement physx scanner
+
+Fixes:
+-fixed node connection lines not centered in connection ports
+-fixed copying/duplicating nodes in variant graph
+
+Changes:
+-all scorers default score is 1 instead of 0
+-changed max slider value for graph update frequency from 30 to 8
+-removed graphStepsPerUpdate from inspector, by default all graphs will now go through all nodes in one update as there is very little to gain
+ by not going through whole graph in every update and it makes ai behaviour inconsistent
+ 
+ 09.2020
+ 1.4
+ Features:
+ -data providers
+ -graph variables
+ -ai references
+ -running ai tasks - every ai task can now 'block' execution of graph until it's finished
+ -new tasks and scorers using data providers and load balanced execution
+ -load balanced scan method for physx movement scanner (can spread scanning across multiple frames for better performance)
+ -default description for AiGraphElement - now you can define graph element's default description in code
+   
+ Improvements:
+ -custom ai load balancer configuration available from inspector and via api
+ -improved spatial scanners
+ -many new api comments and updated documentation
+ -performance improvements in load balancing module
+ 
+ Changes:
+ -SmartAiExposeField is made obsolete, no need to use it anymore, from now all serialized fields are exposed just like in any other Monobehaviour 
+ -some namespaces refactor
+ 
+ 10.2020
+ 1.41
+ Improvements:
+ -real time debug info of graph variables in AI inspector for main graph and secondary graphs
+ -optimized memory allocations in many places
+ -added button in runtime debugging that selects graph owner 
+ 
+ Fixes:
+ -removed rest of obsolete RVSmartAiExposeField attributes
+ -nested graphs will get destroyed when parent graph was destroyed
+ -secondary graphs game objects will get destroyed
+ -fixed runtime debug node connections highlight for running tasks
+ 
+ Changes:
+ -removed 'debug info' showing last evaluated node utility and task from Ai inspector
+ -changed GraphVariables class name to Variables  
+ -AiScanSurrounding task is using FloatProvider instead of normal float for scanRange
+ -AiTask StartExecuting now have return value of bool, to decide if running task was actually started or should be ignored 
+ -MoveToBestPosition divided into two different classes for better control: ScanAndMoveToBestPosition(earlier MoveToBestPosition) and new - MoveToBestPosition
+ that works on earlier prepared list of positions; this setup allows to have position scanning and scoring as separate tasks
+ (one that scans positions(ScanWalkablePositions) and other that scores them and moves to best one(MoveToBestPosition))
+ 
+ 02.2021
+ 1.42
+ Features:
+ -new data providers: string provider
+ -new data providers: LayerMask provider
+ -new task: DebugLogTask - logs provided string                                                         
+ -added layer masks to AiVariables
+ 
+ Fixes:
+ -fixed sub graphs execution bug
+ -fixed displaying "I" next to every input node
+ 
+ Changes:
+ -class Variables changed to AiVariables
+ -AiTask: default returned value of StartExecuting method is now true instead of false
+ -removed output connection port from GraphNodes
+ 
+03.2021
+1.45                                 
+Features:
+-New node: ConditionNode - simple lightweight node with just one scorer and two outputs: True and False
+-New graph elements: Block - will just block execution of graph, DebugBreakTask - calls Debug.Break() on execution
+-Performance info showing useful information regarding performance like how many AI updates per frame you can expect with certain number of characters
+-Event callbacks for objects detection: OnNewObjectDetected, OnObjectNotDetectedAnymore in IObjectDetectionCallbacks interface  
+-Added virtual bool ValidateData() to DataProviderBase, useful to validate if data can be safely provided 
+-Highlighting currently running task in debug
+
+Changes:
+-UnityNavMeshMovement will destroy NavMeshAgent when is destroyed
+-Extracted VisualDebugger<T> as abstract base class for visual debuggers  
+
+Fixes:
+-Data provider context initialization when added at runtime 
+
+4.2021
+1.5
+Features:
+-OptionalDataProvider attribute - can be added to any data provider type field - won't automatically create default data provider and allows removing it from inspector
+Improvements:
+-Support for Unity's 'Tooltip' attribute on data provider fields 
+-Added graph window panning with right/middle mouse button hold
+-FloatProvider now can have additional variables with basic math operators(+ - / *) with no performance overhead if not adding them
+    eg usage: instead of writing 'HalfRangeProvider' or 'RangeWithMultiplierProvider' you can just use 'RangeProvider' and add multiplier to it with any value
+Changes:
+-Refactored all old graph elements not using data providers as obsolete
+-Filtering out "provider" in data providers selection window for better readability
+Fixes:
+-Fixed bug causing graph execution stoppage in rare cases (running tasks in recursive/closed loop nodes)
+-ConditionNode would select true if scored below 0
