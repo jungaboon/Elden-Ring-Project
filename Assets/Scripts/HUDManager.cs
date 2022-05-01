@@ -27,7 +27,7 @@ public class HUDManager : MonoBehaviour
     public void OnLockOn(bool active)
     {
         lockedOn = active;
-        //lockOnReticle.enabled = active;
+        lockOnReticle.enabled = active;
     }
     public void MoveLockOnReticle(Vector3 position)
     {

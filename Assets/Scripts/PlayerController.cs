@@ -16,8 +16,10 @@ public class PlayerController : BasicCharacterController
     [SerializeField] private BoxCollider swordCollider;
 
     private float x, z;
+    private WaitForSeconds dodgeCooldown = new WaitForSeconds(0.4f);
 
     private bool lockedOn;
+    private bool canDodge;
 
     public override void Start()
     {
@@ -25,6 +27,9 @@ public class PlayerController : BasicCharacterController
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         hudManager = HUDManager.Instance;
         gameEventManager = GameEventManager.Instance;
+
+        gameEventManager.LockOn(false);
+        canDodge = true;
     }
 
     public override void Update()
@@ -72,9 +77,9 @@ public class PlayerController : BasicCharacterController
             }
         }
 
-        animator.SetFloat("x", x);
-        animator.SetFloat("z", z);
-        animator.SetFloat("velocity", velocity, 0.05f, Time.deltaTime);
+        animator.SetFloat("x", x, 0.1f, Time.deltaTime);
+        animator.SetFloat("z", z, 0.1f, Time.deltaTime);
+        animator.SetFloat("velocity", velocity, 0.1f, Time.deltaTime);
     }
 
     public override void CombatControls()
@@ -116,11 +121,14 @@ public class PlayerController : BasicCharacterController
 
     private void DodgeControls()
     {
+        if (!canDodge) return;
         if(!lockedOn)
         {
             if (Input.GetButtonDown("Dodge"))
             {
                 animator.SetTrigger("dodge");
+                //animator.Play("Dodge");
+                StartCoroutine(DodgeCooldown());
             }
         }
         else
@@ -133,9 +141,17 @@ public class PlayerController : BasicCharacterController
                 animator.SetFloat("dodgeX", roundX);
                 animator.SetFloat("dodgeZ", roundZ);
                 animator.SetTrigger("lockOnDodge");
+                //animator.Play("Lock On Dodge");
+                StartCoroutine(DodgeCooldown());
             }
 
         }
+    }
+    private IEnumerator DodgeCooldown()
+    {
+        canDodge = false;
+        yield return dodgeCooldown;
+        canDodge = true;
     }
 
     public void StartActivateHitboxCoroutine(float duration = 0.15f)
