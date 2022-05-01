@@ -56,21 +56,14 @@ public class BasicCharacterController : MonoBehaviour
         inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         velocity = inputDirection.normalized.sqrMagnitude;
 
-        if(faceCameraDirection)
+        if (velocity >= 0.01f)
         {
+            float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothDampMultiplier);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-        }
-        else
-        {
-            if (velocity >= 0.01f)
-            {
-                float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothDampMultiplier);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                controller.Move(moveDirection * moveSpeed * Time.deltaTime);
-            } 
+            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            if (!animator.applyRootMotion) controller.Move(moveDirection * moveSpeed * Time.deltaTime);
         }
 
         animator.SetFloat("velocity", velocity, 0.05f, Time.deltaTime);
@@ -86,14 +79,7 @@ public class BasicCharacterController : MonoBehaviour
 
         if(grounded)
         {
-            playerVelocity.y += 2f * Time.deltaTime;
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                animator.Play("Start Jump");
-            }
-
+            playerVelocity.y += -2f * Time.deltaTime;
             controller.stepOffset = defaultStepOffset;
         }
         else
@@ -111,6 +97,14 @@ public class BasicCharacterController : MonoBehaviour
         animator.SetBool("grounded", grounded);
         if (grounded && !previouslyGrounded) animator.Play("Jump Land");
         previouslyGrounded = grounded;
+    }
+    public virtual void Jump()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            animator.Play("Start Jump");
+        }
     }
     public virtual void ApplyDirectionForce(Vector3 direction = default(Vector3))
     {
