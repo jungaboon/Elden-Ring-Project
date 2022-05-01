@@ -5,5 +5,9 @@ using UnityEngine.AI;
 
 public class Malenia : Enemy
 {
-
+    public override void Update()
+    {
+        base.Update();
+        LookAtTarget(0.2f);
+    }
 }

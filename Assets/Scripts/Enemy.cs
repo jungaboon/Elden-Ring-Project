@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using SensorToolkit;
 
 public enum EnemyState
 {
@@ -19,6 +20,7 @@ public enum EnemyState
 public class Enemy : MonoBehaviour
 {
     public EnemyState state;
+    [HideInInspector] public RangeSensor sensor;
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public GameObject target;
     [HideInInspector] public GameEventManager gameEventManager;
@@ -27,6 +29,8 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public Animator animator;
 
     public bool lookingAtTarget;
+    public bool targetVisible;
+    public float targetDistance;
 
     public Vector3 moveDirection;
 
@@ -38,6 +42,7 @@ public class Enemy : MonoBehaviour
         mainCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        sensor = GetComponent<RangeSensor>();
 
         lookingAtTarget = false;
     }
@@ -56,6 +61,12 @@ public class Enemy : MonoBehaviour
                 agent.nextPosition = animator.transform.position;
                 break;
         }
+    }
+
+    public virtual void Update()
+    {
+        MoveDirection();
+        SetTargetDistance();
     }
 
     #region Finding Random Position
@@ -101,7 +112,16 @@ public class Enemy : MonoBehaviour
 
         animator.SetFloat("x", x, 0.05f, Time.deltaTime);
         animator.SetFloat("y", y, 0.05f, Time.deltaTime);
-        animator.SetFloat("velocity", moveDirection.normalized.sqrMagnitude, 0.2f, Time.deltaTime);
+        animator.SetFloat("velocity", /*moveDirection.normalized.sqrMagnitude*/ agent.velocity.magnitude, 0.2f, Time.deltaTime);
+    }
+
+    public void SetTargetDistance()
+    {
+        targetVisible = sensor.GetNearest();
+        targetDistance = Vector3.Distance(target.transform.position, transform.position);
+
+        animator.SetBool("targetVisible", targetVisible);
+        animator.SetFloat("targetDistance", targetDistance);
     }
 
     public void LookAtTarget(float rotationSpeed = 0.1f)
