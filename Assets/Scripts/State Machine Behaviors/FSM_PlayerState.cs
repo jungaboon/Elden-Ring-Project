@@ -12,7 +12,8 @@ public enum PlayerState
     Heal,
     Dodge,
     Hurt,
-    Dead
+    Dead,
+    Taunt
 }
 
 public class FSM_PlayerState : StateMachineBehaviour
@@ -26,6 +27,7 @@ public class FSM_PlayerState : StateMachineBehaviour
         controller.state = state;
 
         controller.animator.applyRootMotion = false;
+        controller.canRotate = true;
 
         switch(state)
         {
@@ -51,6 +53,11 @@ public class FSM_PlayerState : StateMachineBehaviour
                 animator.ResetTrigger("lockOnDodge");
                 break;
             case PlayerState.Parry:
+                controller.canRotate = false;
+                controller.animator.applyRootMotion = true;
+                break;
+            case PlayerState.Taunt:
+                controller.canRotate = false;
                 controller.animator.applyRootMotion = true;
                 break;
         }
@@ -75,6 +82,8 @@ public class FSM_PlayerState : StateMachineBehaviour
                 break;
             case PlayerState.Parry:
                 break;
+            case PlayerState.Taunt:
+                break;
         }
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -96,6 +105,8 @@ public class FSM_PlayerState : StateMachineBehaviour
             case PlayerState.Normal:
                 break;
             case PlayerState.Parry:
+                break;
+            case PlayerState.Taunt:
                 break;
         }
     }

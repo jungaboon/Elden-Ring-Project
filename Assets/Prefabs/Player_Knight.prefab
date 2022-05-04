@@ -5831,8 +5831,10 @@ GameObject:
   - component: {fileID: 8826543005439617359}
   - component: {fileID: 3215010266510144309}
   - component: {fileID: 9076045605412178276}
-  - component: {fileID: 9076045605412178277}
   - component: {fileID: 3171591391773156024}
+  - component: {fileID: 9076045605412178277}
+  - component: {fileID: 717416790}
+  - component: {fileID: 4136691215382490844}
   m_Layer: 6
   m_Name: Player_Knight
   m_TagString: Player
@@ -5887,13 +5889,29 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1.8
-  m_Radius: 0.2
+  m_Height: 2
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &3171591391773156024
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157706356269233141}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!114 &9076045605412178277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5934,22 +5952,63 @@ MonoBehaviour:
   previouslyGrounded: 1
   state: 0
   swordCollider: {fileID: 2620838331112725192}
---- !u!54 &3171591391773156024
-Rigidbody:
+  canRotate: 0
+--- !u!114 &717416790
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8157706356269233141}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e399ac378c20867418f74afb3b946098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+--- !u!114 &4136691215382490844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157706356269233141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+    m_AmplitudeGain: 0.5
+    m_FrequencyGain: 0.75
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
+    m_PropagationSpeed: 343
 --- !u!1 &8386171400353141378
 GameObject:
   m_ObjectHideFlags: 0
@@ -6099,14 +6158,14 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -7511558181221131132, guid: 20821996fc8955540b6c5aa764e4df29, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 20821996fc8955540b6c5aa764e4df29, type: 3}
---- !u!1 &8157706356374683999 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 20821996fc8955540b6c5aa764e4df29, type: 3}
-  m_PrefabInstance: {fileID: 9076045606247857166}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8826543005324844005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 20821996fc8955540b6c5aa764e4df29, type: 3}
+  m_PrefabInstance: {fileID: 9076045606247857166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8157706356374683999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 20821996fc8955540b6c5aa764e4df29, type: 3}
   m_PrefabInstance: {fileID: 9076045606247857166}
   m_PrefabAsset: {fileID: 0}
 --- !u!183 &865257191

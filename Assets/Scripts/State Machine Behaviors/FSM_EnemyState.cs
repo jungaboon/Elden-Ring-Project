@@ -29,7 +29,11 @@ public class FSM_EnemyState : StateMachineBehaviour
         {
             case EnemyState.Attack:
                 enemy.agent.updateRotation = false;
+                enemy.agent.ResetPath();
+                enemy.agent.velocity = Vector3.zero;
                 enemy.lookingAtTarget = true;
+
+                if (Random.value < 0.25f) animator.SetTrigger("attackAgain");
                 break;
             case EnemyState.Block:
                 break;

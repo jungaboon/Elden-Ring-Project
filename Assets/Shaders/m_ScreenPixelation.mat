@@ -25,7 +25,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Contrast: 0.52
-    - _Pixelation: 256
+    - _Pixelation: 300
     - _Saturate: 1.52
     m_Colors: []
   m_BuildTextureStacks: []

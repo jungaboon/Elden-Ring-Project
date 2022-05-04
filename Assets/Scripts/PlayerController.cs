@@ -20,6 +20,7 @@ public class PlayerController : BasicCharacterController
 
     private bool lockedOn;
     private bool canDodge;
+    [HideInInspector] public bool canRotate;
 
     public override void Start()
     {
@@ -30,12 +31,14 @@ public class PlayerController : BasicCharacterController
 
         gameEventManager.LockOn(false);
         canDodge = true;
+        canRotate = true;
     }
 
     public override void Update()
     {
         base.Update();
         DodgeControls();
+        MiscControls();
     }
     public override void MoveControls()
     {
@@ -70,7 +73,7 @@ public class PlayerController : BasicCharacterController
             {
                 float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothDampMultiplier);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                if(canRotate) transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 if (!animator.applyRootMotion) controller.Move(moveDirection * moveSpeed * Time.deltaTime);
@@ -116,6 +119,16 @@ public class PlayerController : BasicCharacterController
             }
             gameEventManager.LockOn(lockedOn);
             animator.SetBool("lockedOn", lockedOn);
+        }
+    }
+
+    private void MiscControls()
+    {
+        if(Input.GetButtonDown("Taunt"))
+        {
+            int tauntType = Random.Range(0, 6);
+            animator.SetFloat("tauntType", (float)tauntType);
+            animator.SetTrigger("taunt");
         }
     }
 
