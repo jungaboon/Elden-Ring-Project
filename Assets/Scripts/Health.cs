@@ -20,6 +20,6 @@ public class Health : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log("Die");
+
     }
 }

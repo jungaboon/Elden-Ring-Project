@@ -5308,6 +5308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb8264313468e447abdc941ae294c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 20
 --- !u!1 &2648549205203592350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5983,7 +5984,7 @@ MonoBehaviour:
     m_ImpulseChannel: 1
     m_RawSignal: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
     m_AmplitudeGain: 0.5
-    m_FrequencyGain: 0.75
+    m_FrequencyGain: 1
     m_RepeatMode: 0
     m_Randomize: 1
     m_TimeEnvelope:

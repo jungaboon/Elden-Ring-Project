@@ -27,7 +27,7 @@ public class EnemyHealth : Health
     private IEnumerator HitEffect()
     {
         transform.DORewind();
-        transform.DOPunchScale(new Vector3(0.15f, 0.15f, 0.15f), 0.15f);
+        transform.DOPunchScale(new Vector3(0.05f, 0.05f, 0.05f), 0.15f);
         animator.speed = 0f;
         yield return hitEffectDelay;
         animator.speed = 1f;

@@ -20,8 +20,8 @@ public class EnemyAttack : MonoBehaviour
         {
             Debug.Log("Hit " + other.name);
             health.Damage(attackDamage);
-            Vector3 midpoint = Vector3.Lerp(other.bounds.center, coll.bounds.center, 0.5f);
-            vfxManager.SpawnParticle(ParticleType.Hitspark, midpoint);
+            //Vector3 midpoint = Vector3.Lerp(other.bounds.center, coll.bounds.center, 0.5f);
+            //vfxManager.SpawnParticle(ParticleType.Hitspark, midpoint);
         }
     }
 }

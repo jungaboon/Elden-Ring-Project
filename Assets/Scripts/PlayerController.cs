@@ -8,6 +8,7 @@ public class PlayerController : BasicCharacterController
     [HideInInspector] public PlayerState state;
     private HUDManager hudManager;
     private GameEventManager gameEventManager;
+    private PlayerHealth health;
 
     private GameObject enemy;
     private Transform target;
@@ -16,7 +17,8 @@ public class PlayerController : BasicCharacterController
     [SerializeField] private BoxCollider swordCollider;
 
     private float x, z;
-    private WaitForSeconds dodgeCooldown = new WaitForSeconds(0.4f);
+    private WaitForSeconds dodgeCooldown = new WaitForSeconds(0.2f);
+    private WaitForSeconds invincibilityDelay = new WaitForSeconds(0.25f);
 
     private bool lockedOn;
     private bool canDodge;
@@ -28,6 +30,7 @@ public class PlayerController : BasicCharacterController
         enemy = GameObject.FindGameObjectWithTag("Enemy");
         hudManager = HUDManager.Instance;
         gameEventManager = GameEventManager.Instance;
+        health = GetComponent<PlayerHealth>();
 
         gameEventManager.LockOn(false);
         canDodge = true;
@@ -124,6 +127,8 @@ public class PlayerController : BasicCharacterController
 
     private void MiscControls()
     {
+        // TO DO: Make this just based on the directional pad
+        // Maybe add some sort of icon that appears?
         if(Input.GetButtonDown("Taunt"))
         {
             int tauntType = Random.Range(0, 6);
@@ -163,6 +168,9 @@ public class PlayerController : BasicCharacterController
     private IEnumerator DodgeCooldown()
     {
         canDodge = false;
+        health.canTakeDamage = false;
+        yield return invincibilityDelay;
+        health.canTakeDamage = true;
         yield return dodgeCooldown;
         canDodge = true;
     }
