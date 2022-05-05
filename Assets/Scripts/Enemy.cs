@@ -27,8 +27,10 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public Collider mainCollider;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public EnemyAttack enemyAttack;
 
     public bool lookingAtTarget;
+    public bool attacking;
     public bool targetVisible;
     public float targetDistance;
 
@@ -43,6 +45,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         sensor = GetComponent<RangeSensor>();
+        enemyAttack = GetComponentInChildren<EnemyAttack>();
 
         lookingAtTarget = false;
     }

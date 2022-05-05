@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public enum PlayerState
 {
@@ -21,6 +23,9 @@ public class FSM_PlayerState : StateMachineBehaviour
     [SerializeField] private PlayerState state;
     private PlayerController controller;
 
+    [HideInInspector] public bool isActualAttackState = true;
+    [HideInInspector] public float timeBeforeAbleToDodge = 0.3f;
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         controller = animator.GetComponent<PlayerController>();
@@ -28,11 +33,13 @@ public class FSM_PlayerState : StateMachineBehaviour
 
         controller.animator.applyRootMotion = false;
         controller.canRotate = true;
+        controller.canPressDodge = true;
 
         switch(state)
         {
             case PlayerState.Attack:
                 controller.animator.applyRootMotion = true;
+                if(isActualAttackState) controller.StartAttackDodgeCooldown(timeBeforeAbleToDodge);
                 break;
             case PlayerState.Dead:
                 break;
@@ -42,9 +49,12 @@ public class FSM_PlayerState : StateMachineBehaviour
                 controller.animator.applyRootMotion = true;
                 break;
             case PlayerState.Heal:
+                controller.canPressDodge = false;
                 break;
             case PlayerState.Hurt:
+                controller.canRotate = false;
                 controller.animator.applyRootMotion = true;
+                controller.canPressDodge = false;
                 break;
             case PlayerState.Normal:
                 animator.ResetTrigger("attack");
@@ -55,6 +65,7 @@ public class FSM_PlayerState : StateMachineBehaviour
             case PlayerState.Parry:
                 controller.canRotate = false;
                 controller.animator.applyRootMotion = true;
+                controller.canPressDodge = false;
                 break;
             case PlayerState.Taunt:
                 controller.canRotate = false;
@@ -110,4 +121,29 @@ public class FSM_PlayerState : StateMachineBehaviour
                 break;
         }
     }
+
+
+    #region Editor
+    #if UNITY_EDITOR
+    [CustomEditor(typeof(FSM_PlayerState))]
+    public class FSM_PlayerStateEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            FSM_PlayerState playerState = (FSM_PlayerState)target;
+            switch(playerState.state)
+            {
+                case PlayerState.Attack:
+                    playerState.isActualAttackState = EditorGUILayout.Toggle("Is Actual Attack State", playerState.isActualAttackState);
+                    if(playerState.isActualAttackState)
+                    {
+                        playerState.timeBeforeAbleToDodge = EditorGUILayout.FloatField("Time Before Able To Dodge", playerState.timeBeforeAbleToDodge);
+                    }
+                    break;
+            }
+        }
+    }
+    #endif
+    #endregion
 }

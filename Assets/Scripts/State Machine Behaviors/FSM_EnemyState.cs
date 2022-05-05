@@ -15,6 +15,9 @@ public class FSM_EnemyState : StateMachineBehaviour
     [HideInInspector] public bool moveToRadiusAroundTarget;
     [HideInInspector] public float radius = 1f;
 
+    [HideInInspector] public bool heavy;
+    [HideInInspector] public float attackDamage = 15f;
+
     private float moveTime;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,6 +27,7 @@ public class FSM_EnemyState : StateMachineBehaviour
         enemy.agent.updateRotation = true;
         enemy.agent.speed = moveSpeed;
         enemy.lookingAtTarget = false;
+        enemy.attacking = false;
 
         switch(state)
         {
@@ -32,8 +36,11 @@ public class FSM_EnemyState : StateMachineBehaviour
                 enemy.agent.ResetPath();
                 enemy.agent.velocity = Vector3.zero;
                 enemy.lookingAtTarget = true;
+                enemy.attacking = true;
+                enemy.enemyAttack.heavyAttack = heavy;
+                enemy.enemyAttack.attackDamage = attackDamage;
 
-                if (Random.value < 0.25f) animator.SetTrigger("attackAgain");
+                if (Random.value < 0.5f) animator.SetTrigger("attackAgain");
                 break;
             case EnemyState.Block:
                 break;
@@ -114,6 +121,8 @@ public class FSM_EnemyState : StateMachineBehaviour
     }
 }
 
+#region Editor
+#if UNITY_EDITOR
 [CustomEditor(typeof(FSM_EnemyState))]
 public class FSM_EnemyStateEditor : Editor
 {
@@ -134,6 +143,12 @@ public class FSM_EnemyStateEditor : Editor
                 enemyState.moveTimer = EditorGUILayout.FloatField("Move Timer", enemyState.moveTimer);
                 enemyState.radius = EditorGUILayout.FloatField("Radius", enemyState.radius);
                 break;
+            case EnemyState.Attack:
+                enemyState.heavy = EditorGUILayout.Toggle("Heavy", enemyState.heavy);
+                enemyState.attackDamage = EditorGUILayout.FloatField("Attack Damage", enemyState.attackDamage);
+                break;
         }
     }
 }
+#endif
+#endregion

@@ -14,14 +14,18 @@ public class PlayerController : BasicCharacterController
     private Transform target;
     private Vector3 lockedMoveDir;
     private IEnumerator hitboxCoroutine;
+    private IEnumerator attackDodgeCoroutine;
     [SerializeField] private BoxCollider swordCollider;
 
     private float x, z;
+    private float defControllerHeight;
+    private Vector3 defControllerPos;
     private WaitForSeconds dodgeCooldown = new WaitForSeconds(0.2f);
     private WaitForSeconds invincibilityDelay = new WaitForSeconds(0.25f);
 
     private bool lockedOn;
     private bool canDodge;
+    [HideInInspector] public bool canPressDodge;
     [HideInInspector] public bool canRotate;
 
     public override void Start()
@@ -31,6 +35,9 @@ public class PlayerController : BasicCharacterController
         hudManager = HUDManager.Instance;
         gameEventManager = GameEventManager.Instance;
         health = GetComponent<PlayerHealth>();
+
+        defControllerHeight = controller.height;
+        defControllerPos = controller.center;
 
         gameEventManager.LockOn(false);
         canDodge = true;
@@ -139,13 +146,12 @@ public class PlayerController : BasicCharacterController
 
     private void DodgeControls()
     {
-        if (!canDodge) return;
+        if (!canDodge || !canPressDodge) return;
         if(!lockedOn)
         {
             if (Input.GetButtonDown("Dodge"))
             {
-                animator.SetTrigger("dodge");
-                //animator.Play("Dodge");
+                animator.Play("Dodge");
                 StartCoroutine(DodgeCooldown());
             }
         }
@@ -153,13 +159,9 @@ public class PlayerController : BasicCharacterController
         {
             if (Input.GetButtonDown("Dodge"))
             {
-                float roundX = Mathf.Round(x);
-                float roundZ = Mathf.Round(z);
-
-                animator.SetFloat("dodgeX", roundX);
-                animator.SetFloat("dodgeZ", roundZ);
-                animator.SetTrigger("lockOnDodge");
-                //animator.Play("Lock On Dodge");
+                animator.SetFloat("dodgeX", Mathf.Round(x));
+                animator.SetFloat("dodgeZ", Mathf.Round(z));
+                animator.Play("Lock On Dodge");
                 StartCoroutine(DodgeCooldown());
             }
 
@@ -168,11 +170,27 @@ public class PlayerController : BasicCharacterController
     private IEnumerator DodgeCooldown()
     {
         canDodge = false;
+        controller.height = 1f;
+        controller.center = new Vector3(0f, 0.5f, 0f);
         health.canTakeDamage = false;
         yield return invincibilityDelay;
         health.canTakeDamage = true;
         yield return dodgeCooldown;
+        DOTween.To(() => controller.height, x => controller.height = x, defControllerHeight, 0.15f);
+        DOTween.To(() => controller.center, x => controller.center = x, defControllerPos, 0.15f);
         canDodge = true;
+    }
+    public void StartAttackDodgeCooldown(float duration)
+    {
+        if (attackDodgeCoroutine != null) StopCoroutine(attackDodgeCoroutine);
+        attackDodgeCoroutine = AttackDodgeCooldown(duration);
+        StartCoroutine(attackDodgeCoroutine);
+    }
+    private IEnumerator AttackDodgeCooldown(float duration)
+    {
+        canPressDodge = false;
+        yield return new WaitForSeconds(duration);
+        canPressDodge = true;
     }
 
     public void StartActivateHitboxCoroutine(float duration = 0.15f)

@@ -16,7 +16,7 @@ public class EnemyHealth : Health
         animator = GetComponent<Animator>();
     }
 
-    public override void Damage(float amount)
+    public override void Damage(float amount, bool heavy = false, float dotDirection = 0f)
     {
         base.Damage(amount);
         if (hitCoroutine != null) StopCoroutine(hitCoroutine);

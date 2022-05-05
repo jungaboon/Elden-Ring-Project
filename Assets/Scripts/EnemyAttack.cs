@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public float attackDamage = 20f;
+    public bool heavyAttack;
     private VFXManager vfxManager;
     private Collider coll;
 
@@ -16,12 +17,11 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("On Trigger enter " + other.name);
         if(other.TryGetComponent(out Health health))
         {
-            Debug.Log("Hit " + other.name);
-            health.Damage(attackDamage);
-            //Vector3 midpoint = Vector3.Lerp(other.bounds.center, coll.bounds.center, 0.5f);
-            //vfxManager.SpawnParticle(ParticleType.Hitspark, midpoint);
+            float dotDirection = Mathf.Round(Vector3.Dot(transform.forward, other.transform.forward));
+            health.Damage(attackDamage, heavyAttack, dotDirection);
         }
     }
 }

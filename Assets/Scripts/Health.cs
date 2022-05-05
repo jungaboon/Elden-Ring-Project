@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public virtual void Damage(float amount)
+    public virtual void Damage(float amount, bool heavy = false, float dotDirection = 0f)
     {
         currentHealth -= amount;
         if (currentHealth <= 0f) Die();

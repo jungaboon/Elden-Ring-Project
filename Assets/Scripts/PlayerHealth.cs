@@ -21,15 +21,24 @@ public class PlayerHealth : Health
         canTakeDamage = true;
     }
 
-    public override void Damage(float amount)
+    public override void Damage(float amount, bool heavy = false, float dotDirection = 0f)
     {
         if (!canTakeDamage) return;
 
         base.Damage(amount);
         vfxManager.SpawnParticle(ParticleType.Hitspark, transform.position + Vector3.up);
         impulse.GenerateImpulse();
-        float hurtType = Mathf.Round(Random.Range(0f, 3f));
-        animator.SetFloat("hurtType", hurtType);
-        animator.Play("Hurt");
+
+        if(heavy)
+        {
+            animator.SetFloat("hitDirection", dotDirection);
+            animator.Play("Knockdown");
+        }
+        else
+        {
+            float hurtType = Mathf.Round(Random.Range(0f, 3f));
+            animator.SetFloat("hurtType", hurtType);
+            animator.Play("Hurt");
+        }
     }
 }
