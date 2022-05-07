@@ -32,13 +32,13 @@ public class PlayerHealth : Health
         if(heavy)
         {
             animator.SetFloat("hitDirection", dotDirection);
-            animator.Play("Knockdown");
+            animator.Play("Knockdown", 0, 0f);
         }
         else
         {
             float hurtType = Mathf.Round(Random.Range(0f, 3f));
             animator.SetFloat("hurtType", hurtType);
-            animator.Play("Hurt");
+            animator.Play("Hurt", 0, 0f);
         }
     }
 }

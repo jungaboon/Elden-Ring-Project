@@ -37,10 +37,14 @@ public class FSM_EnemyState : StateMachineBehaviour
                 enemy.agent.velocity = Vector3.zero;
                 enemy.lookingAtTarget = true;
                 enemy.attacking = true;
-                enemy.enemyAttack.heavyAttack = heavy;
-                enemy.enemyAttack.attackDamage = attackDamage;
+                enemy.attackDamage = attackDamage;
+                enemy.heavyAttack = heavy;
 
-                if (Random.value < 0.5f) animator.SetTrigger("attackAgain");
+                if (Random.value < 0.5f)
+                {
+                    animator.SetInteger("attackType", Random.Range(0, 2));
+                    animator.SetTrigger("attackAgain");
+                }
                 break;
             case EnemyState.Block:
                 break;

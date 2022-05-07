@@ -2281,21 +2281,21 @@ ModelImporter:
         functionName: StartAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.2
+        floatParameter: 0.3
         intParameter: 0
         messageOptions: 0
       - time: 0.3240272
         functionName: StartAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.2
+        floatParameter: 0.3
         intParameter: 0
         messageOptions: 0
       - time: 0.58026314
         functionName: StartAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.2
+        floatParameter: 0.35
         intParameter: 0
         messageOptions: 0
       transformMask: []

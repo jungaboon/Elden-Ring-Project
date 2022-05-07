@@ -29,6 +29,9 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public EnemyAttack enemyAttack;
 
+    [HideInInspector] public float attackDamage;
+    [HideInInspector] public bool heavyAttack;
+
     public bool lookingAtTarget;
     public bool attacking;
     public bool targetVisible;
